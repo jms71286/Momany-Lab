@@ -27,7 +27,7 @@ fi
 
 curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/655/GCF_000002655.1_ASM265v1/GCF_000002655.1_ASM265v1_genomic.fna.gz  | gunzip -c > $rnaseq/Af293_refseq_CDS.fna
 
-module load kallisto/0.46.1-foss-2019b
+module load kallisto/0.44.0-foss-2022a
 kallisto index -i $rnaseq/Af293_refseq_CDS.fa.idx $rnaseq/Af293_refseq_CDS.fna  #output_index input_fasta
 
 kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR1813949 $rnaseq/SRR1813949_1.fastq.gz $rnaseq/SRR1813949_2.fastq.gz
