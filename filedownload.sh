@@ -45,8 +45,8 @@ curl -s ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR319/001/SRR3190001/SRR3190001.fast
 #fastq-dump --split-files --gzip $rnaseq/SRR3190001.sra -O $rnaseq
 
 bwa index $rnaseq/Af293_refseq_CDS.fna       # to make BWA index, L15 Slide 16
-bwa mem -t 6 $rnaseq/Af293_refseq_CDS.fna $rnaseq/SRR1813950_1.fastq.gz $rnaseq/SRR1813950_2.fastq.gz > $rnaseq/SRR1813950.sam     # bwa mem -t 1 ref_genome.fa sample_1.fastq.gz sample_2.fastq.gz > sample.sam
-
+#bwa mem -t 6 $rnaseq/Af293_refseq_CDS.fna $rnaseq/SRR1813950_1.fastq.gz $rnaseq/SRR1813950_2.fastq.gz > $rnaseq/SRR1813950.sam     # bwa mem -t 1 ref_genome.fa sample_1.fastq.gz sample_2.fastq.gz > sample.sam
+#bwa mem -t 6 $rnaseq/Af293_refseq_CDS.fna $rnaseq/SRR1813950.fastq.gz > $rnaseq/SRR1813950
 #samtools view $rnaseq/SRR1813950.sam -O BAM -o $rnaseq/SRR1813950.bam       # converts .sam format to .bam
 #samtools sort --threads 6 $rnaseq/SRR1813950.bam -o $rnaseq/SRR1813950.sorted.bam       # sorts .bam
 #samtools index $rnaseq/SRR1813950.sorted.bam          # generates index for sorted .bam
@@ -56,4 +56,4 @@ kallisto index -i $rnaseq/Af293_refseq_CDS.fa.idx $rnaseq/Af293_refseq_CDS.fna  
 
 kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR1813950 $rnaseq/SRR1813950.fastq.gz
 kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR3190000 $rnaseq/SRR3190000.fastq.gz
-kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR3190001 $rnaseq/SRR3190001.fastq.qz 
+kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR3190001 $rnaseq/SRR3190001.fastq.qz
