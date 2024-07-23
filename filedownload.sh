@@ -26,7 +26,7 @@ then
 fi
 
 module load SRA-Toolkit/3.0.1-centos_linux64
-module load BWA/0.7.17-GCCcore/11.3.0
+module load BWA/0.7.17-GCCcore-11.2.0
 module load SAMtools/1.10-GCC-8.3.0
 
 #download af293 whole genome seq
