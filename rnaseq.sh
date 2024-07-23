@@ -11,14 +11,14 @@
 
 #Using Project_RNAseq.sh as template
 #PROJ_OUTDIR="/work/gene8940/jms71286/Project_RNAseq"
-rnaseq="/scratch/jms71286/22july2024"
+rnaseq="/scratch/jms71286/rnaseq"
 
 if [ ! -d $rnaseq ]
 then
     mkdir -p $rnaseq
 fi
 
-KALLISTO_OUTDIR="/scratch/jms71286/22july2024_results"
+KALLISTO_OUTDIR="/scratch/jms71286/rnaseq_results"
 
 if [ ! -d $KALLISTO_OUTDIR ]
 then
@@ -29,21 +29,25 @@ curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/655/GCF_000002655.1
 
 module load SRA-Toolkit/3.0.1-centos_linux64
 
-prefetch -O $rnaseq/ SRR1813949  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT1
-fastq-dump --split-files --gzip $rnaseq/SRR1813949/SRR1813949.sra -O $rnaseq
-prefetch -O $rnaseq/ SRR1813950  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT2
-fastq-dump --split-files --gzip $rnaseq/SRR1813950/SRR1813950.sra -O $rnaseq
+#SRR1813949 WT af293 RNASEQ REP1
+wget -t 0 ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR181/009/SRR1813949/SRR1813949.fastq.gz
+mv ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR181/009/SRR1813949/SRR1813949.fastq.gz $rnaseq/SRR1813949.fastq.gz
 
-prefetch -O $rnaseq/ SRR1816873  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete2
-fastq-dump --split-files --gzip $rnaseq/SRR1816873/SRR1816873.sra -O $rnaseq
-prefetch -O $rnaseq/ SRR3190000  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete3
-fastq-dump --split-files --gzip $rnaseq/SRR3190000/SRR3190000.sra -O $rnaseq
-prefetch -O $rnaseq/ SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
-fastq-dump --split-files --gzip $rnaseq/SRR3190001/SRR3190001.sra -O $rnaseq
+# retrieve paired Illumina data in gzipped fastq format directly with no prefetch
+# download paired end Illumina SRA file
 
-#dont think i need bwa
-#module load BWA/0.7.17-GCCcore/11.3.0
-#bwa index $rnaseq/Af293_refseq_CDS.fa       # to make BWA index, L15 Slide 16
+prefetch -O $rnaseq/SRR1813949  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT1
+fastq-dump --split-files --gzip $rnaseq/SRR1813949.sra -O $rnaseq #fastq-dump --split-files --gzip /work/gene8940/cbergman/SRR8082143.sra -O /work/gene8940/cbergman/
+prefetch -O $rnaseq/SRR1813950  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT2
+fastq-dump --split-files --gzip $rnaseq/SRR1813950.sra -O $rnaseq
+
+prefetch -O $rnaseq/SRR1816873  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete2
+fastq-dump --split-files --gzip $rnaseq/SRR1816873.sra -O $rnaseq
+prefetch -O $rnaseq/SRR3190000  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete3
+fastq-dump --split-files --gzip $rnaseq/SRR3190000.sra -O $rnaseq
+prefetch -O $rnaseq/SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
+fastq-dump --split-files --gzip $rnaseq/SRR3190001.sra -O $rnaseq
+
 
 module load kallisto/0.44.0-foss-2022a
 kallisto index -i $rnaseq/Af293_refseq_CDS.fa.idx $rnaseq/Af293_refseq_CDS.fna  #output_index input_fasta
