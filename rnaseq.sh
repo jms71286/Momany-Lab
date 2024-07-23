@@ -29,16 +29,16 @@ curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/655/GCF_000002655.1
 
 module load SRA-Toolkit/3.0.1-centos_linux64
 
-prefetch -O $rnaseq/SRR1813949  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT1
+prefetch -O $rnaseq/ SRR1813949  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT1
 fastq-dump --split-files --gzip $rnaseq/SRR1813949.sra -O $rnaseq #fastq-dump --split-files --gzip /work/gene8940/cbergman/SRR8082143.sra -O /work/gene8940/cbergman/
-prefetch -O $rnaseq/SRR1813950  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT2
+prefetch -O $rnaseq/ SRR1813950  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT2
 fastq-dump --split-files --gzip $rnaseq/SRR1813950.sra -O $rnaseq
 
-prefetch -O $rnaseq/SRR1816873  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete2
+prefetch -O $rnaseq/ SRR1816873  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete2
 fastq-dump --split-files --gzip $rnaseq/SRR1816873.sra -O $rnaseq
-prefetch -O $rnaseq/SRR3190000  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete3
+prefetch -O $rnaseq/ SRR3190000  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete3
 fastq-dump --split-files --gzip $rnaseq/SRR3190000.sra -O $rnaseq
-prefetch -O $rnaseq/SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
+prefetch -O $rnaseq/ SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
 fastq-dump --split-files --gzip $rnaseq/SRR3190001.sra -O $rnaseq
 
 module load kallisto/0.44.0-foss-2022a
