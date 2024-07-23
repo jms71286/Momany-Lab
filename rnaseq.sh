@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1			                                 # Single task job
 #SBATCH --cpus-per-task=6 	                             # Number of cores per task - match this to the num_threads used by BLAST
 #SBATCH --mem=24gb			                                 # Total memory for job
-#SBATCH --time=8:00:00  		                             # Time limit hrs:min:sec
+#SBATCH --time=10:00:00  		                             # Time limit hrs:min:sec
 #SBATCH --output=/home/jms71286/logs/log.%j			         # Standard output and error log - # replace with your myid
 #SBATCH --mail-user=jms71286@uga.edu                     # Where to send mail - # replace cbergman with your myid
 #SBATCH --mail-type=ALL                                  # Mail events (BEGIN, END, FAIL, ALL)
@@ -28,7 +28,6 @@ fi
 curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/655/GCF_000002655.1_ASM265v1/GCF_000002655.1_ASM265v1_genomic.fna.gz  | gunzip -c > $rnaseq/Af293_refseq_CDS.fna
 
 module load SRA-Toolkit/3.0.1-centos_linux64
-module load BWA/0.7.17-GCCcore-11.2.0
 
 prefetch -O $rnaseq/ SRR1813949  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT1
 fastq-dump --split-files --gzip $rnaseq/SRR1813949/SRR1813949.sra -O $rnaseq
@@ -42,8 +41,9 @@ fastq-dump --split-files --gzip $rnaseq/SRR3190000/SRR3190000.sra -O $rnaseq
 prefetch -O $rnaseq/ SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
 fastq-dump --split-files --gzip $rnaseq/SRR3190001/SRR3190001.sra -O $rnaseq
 
-bwa index $rnaseq/Af293_refseq_CDS.fa       # to make BWA index, L15 Slide 16
-
+#dont think i need bwa
+#module load BWA/0.7.17-GCCcore/11.3.0
+#bwa index $rnaseq/Af293_refseq_CDS.fa       # to make BWA index, L15 Slide 16
 
 module load kallisto/0.44.0-foss-2022a
 kallisto index -i $rnaseq/Af293_refseq_CDS.fa.idx $rnaseq/Af293_refseq_CDS.fna  #output_index input_fasta

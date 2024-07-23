@@ -34,12 +34,12 @@ sleuth_object <- sleuth_lrt(sleuth_object, 'reduced', 'full')
 # check that sleuth object is OK
 models(sleuth_object)
 
-#summarize the sleuth results and visualize results for the 25 most significant DE transcripts
+#summarize the sleuth results and visualize results for the 1000 most significant DE transcripts
 sleuth_table <- sleuth_results(sleuth_object, 'reduced:full', 'lrt', show_all = FALSE)
 sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
 
 pdf(file="SleuthResults.pdf")
-for(i in sleuth_significant$target_id[1:25]) {
+for(i in sleuth_significant$target_id[1:1000]) {
   p1 <- plot_bootstrap(sleuth_object, i, units = "tpm", color_by = "condition")
   print(p1)
 }
