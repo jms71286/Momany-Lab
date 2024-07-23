@@ -31,16 +31,16 @@ module load SRA-Toolkit/3.0.1-centos_linux64
 module load BWA/0.7.17-GCCcore-11.2.0
 
 prefetch -O $rnaseq/ SRR1813949  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT1
-fastq-dump --split-files --gzip $rnaseq/SRR1813949.sra -O $rnaseq
+fastq-dump --split-files --gzip $rnaseq/SRR1813949/SRR1813949.sra -O $rnaseq
 prefetch -O $rnaseq/ SRR1813950  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT2
-fastq-dump --split-files --gzip $rnaseq/SRR1813950.sra -O $rnaseq
+fastq-dump --split-files --gzip $rnaseq/SRR1813950/SRR1813950.sra -O $rnaseq
 
 prefetch -O $rnaseq/ SRR1816873  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete2
-fastq-dump --split-files --gzip $rnaseq/SRR1816873.sra -O $rnaseq
+fastq-dump --split-files --gzip $rnaseq/SRR1816873/SRR1816873.sra -O $rnaseq
 prefetch -O $rnaseq/ SRR3190000  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete3
-fastq-dump --split-files --gzip $rnaseq/SRR3190000.sra -O $rnaseq
+fastq-dump --split-files --gzip $rnaseq/SRR3190000/SRR3190000.sra -O $rnaseq
 prefetch -O $rnaseq/ SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
-fastq-dump --split-files --gzip $rnaseq/SRR3190001.sra -O $rnaseq
+fastq-dump --split-files --gzip $rnaseq/SRR3190001/SRR3190001.sra -O $rnaseq
 
 bwa index $rnaseq/Af293_refseq_CDS.fa       # to make BWA index, L15 Slide 16
 
