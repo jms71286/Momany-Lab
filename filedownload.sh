@@ -36,24 +36,24 @@ curl -s ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR181/000/SRR1813950/SRR1813950.fast
 curl -s ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR319/000/SRR3190000/SRR3190000.fastq.gz | gunzip -c > $rnaseq/SRR3190000.fastq.gz #veA delete3
 curl -s ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR319/001/SRR3190001/SRR3190001.fastq.gz | gunzip -c > $rnaseq/SRR3190001.fastq.gz #veA delete4
 
-prefetch -O $rnaseq SRR1813950  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT2
-fastq-dump --split-files --gzip $rnaseq/SRR1813950.sra -O $rnaseq
+#prefetch -O $rnaseq SRR1813950  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT2
+#fastq-dump --split-files --gzip $rnaseq/SRR1813950.sra -O $rnaseq
 
-prefetch -O $rnaseq SRR3190000  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete3
-fastq-dump --split-files --gzip $rnaseq/SRR3190000.sra -O $rnaseq
-prefetch -O $rnaseq SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
-fastq-dump --split-files --gzip $rnaseq/SRR3190001.sra -O $rnaseq
+#prefetch -O $rnaseq SRR3190000  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete3
+#fastq-dump --split-files --gzip $rnaseq/SRR3190000.sra -O $rnaseq
+#prefetch -O $rnaseq SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
+#fastq-dump --split-files --gzip $rnaseq/SRR3190001.sra -O $rnaseq
 
 bwa index $rnaseq/Af293_refseq_CDS.fna       # to make BWA index, L15 Slide 16
 bwa mem -t 6 $rnaseq/Af293_refseq_CDS.fna $rnaseq/SRR1813950_1.fastq.gz $rnaseq/SRR1813950_2.fastq.gz > $rnaseq/SRR1813950.sam     # bwa mem -t 1 ref_genome.fa sample_1.fastq.gz sample_2.fastq.gz > sample.sam
 
-samtools view $rnaseq/SRR1813950.sam -O BAM -o $rnaseq/SRR1813950.bam       # converts .sam format to .bam
-samtools sort --threads 6 $rnaseq/SRR1813950.bam -o $rnaseq/SRR1813950.sorted.bam       # sorts .bam
-samtools index $rnaseq/SRR1813950.sorted.bam          # generates index for sorted .bam
+#samtools view $rnaseq/SRR1813950.sam -O BAM -o $rnaseq/SRR1813950.bam       # converts .sam format to .bam
+#samtools sort --threads 6 $rnaseq/SRR1813950.bam -o $rnaseq/SRR1813950.sorted.bam       # sorts .bam
+#samtools index $rnaseq/SRR1813950.sorted.bam          # generates index for sorted .bam
 
 module load kallisto/0.44.0-foss-2022a
 kallisto index -i $rnaseq/Af293_refseq_CDS.fa.idx $rnaseq/Af293_refseq_CDS.fna  #output_index input_fasta
 
-kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR1813950 $rnaseq/SRR1813950_1.fastq.gz $rnaseq/SRR1813950_2.fastq.gz
-kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR3190000 $rnaseq/SRR3190000_1.fastq.gz $rnaseq/SRR3190000_2.fastq.gz
-kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR3190001 $rnaseq/SRR3190001_1.fastq.qz $rnaseq/SRR3190001_2.fastq.qz
+kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR1813950 $rnaseq/SRR1813950.fastq.gz
+kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR3190000 $rnaseq/SRR3190000.fastq.gz
+kallisto quant -t 6 -b 100 -i $rnaseq/Af293_refseq_CDS.fa.idx -o $KALLISTO_OUTDIR/SRR3190001 $rnaseq/SRR3190001.fastq.qz 
