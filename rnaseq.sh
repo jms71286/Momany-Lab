@@ -27,10 +27,8 @@ fi
 
 curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/655/GCF_000002655.1_ASM265v1/GCF_000002655.1_ASM265v1_genomic.fna.gz  | gunzip -c > $rnaseq/Af293_refseq_CDS.fna
 
-
-module load SRA-Toolkit/2.9.6-1-centos_linux64
-module load BWA/0.7.17-GCC-8.3.0
-module load SAMtools/1.10-GCC-8.3.0
+module load SRA-Toolkit/3.0.1-centos_linux64
+module load BWA/0.7.17-GCCcore-11.2.0
 
 prefetch -O $rnaseq SRR1813949  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT1
 fastq-dump --split-files --gzip $rnaseq/SRR1813949.sra -O $rnaseq
@@ -43,6 +41,9 @@ prefetch -O $rnaseq SRR3190000  #prefetch -O /work/gene8940/cbergman/ SRR8082143
 fastq-dump --split-files --gzip $rnaseq/SRR3190000.sra -O $rnaseq
 prefetch -O $rnaseq SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
 fastq-dump --split-files --gzip $rnaseq/SRR3190001.sra -O $rnaseq
+
+bwa index $rnaseq/Af293_refseq_CDS.fa       # to make BWA index, L15 Slide 16
+
 
 module load kallisto/0.44.0-foss-2022a
 kallisto index -i $rnaseq/Af293_refseq_CDS.fa.idx $rnaseq/Af293_refseq_CDS.fna  #output_index input_fasta
