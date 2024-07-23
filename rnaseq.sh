@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=22july2024                            # Job name
+#SBATCH --job-name=rnaseq                           # Job name
 #SBATCH --partition=batch		                             # Partition (queue) name
 #SBATCH --ntasks=1			                                 # Single task job
 #SBATCH --cpus-per-task=6 	                             # Number of cores per task - match this to the num_threads used by BLAST
@@ -29,13 +29,6 @@ curl -s https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/655/GCF_000002655.1
 
 module load SRA-Toolkit/3.0.1-centos_linux64
 
-#SRR1813949 WT af293 RNASEQ REP1
-wget -t 0 ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR181/009/SRR1813949/SRR1813949.fastq.gz
-mv ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR181/009/SRR1813949/SRR1813949.fastq.gz $rnaseq/SRR1813949.fastq.gz
-
-# retrieve paired Illumina data in gzipped fastq format directly with no prefetch
-# download paired end Illumina SRA file
-
 prefetch -O $rnaseq/SRR1813949  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT1
 fastq-dump --split-files --gzip $rnaseq/SRR1813949.sra -O $rnaseq #fastq-dump --split-files --gzip /work/gene8940/cbergman/SRR8082143.sra -O /work/gene8940/cbergman/
 prefetch -O $rnaseq/SRR1813950  #prefetch -O /work/gene8940/cbergman/ SRR8082143 WT2
@@ -47,7 +40,6 @@ prefetch -O $rnaseq/SRR3190000  #prefetch -O /work/gene8940/cbergman/ SRR8082143
 fastq-dump --split-files --gzip $rnaseq/SRR3190000.sra -O $rnaseq
 prefetch -O $rnaseq/SRR3190001  #prefetch -O /work/gene8940/cbergman/ SRR8082143 veA delete4
 fastq-dump --split-files --gzip $rnaseq/SRR3190001.sra -O $rnaseq
-
 
 module load kallisto/0.44.0-foss-2022a
 kallisto index -i $rnaseq/Af293_refseq_CDS.fa.idx $rnaseq/Af293_refseq_CDS.fna  #output_index input_fasta
