@@ -1,4 +1,6 @@
+#This is updated rnaseq.sh file*
 #This script failed 1.5 hours into run
+
 #!/bin/bash
 #SBATCH --job-name=rnaseq                           # Job name
 #SBATCH --partition=batch		                             # Partition (queue) name
