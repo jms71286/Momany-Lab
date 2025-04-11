@@ -11,7 +11,7 @@
 #SBATCH --error=../logs/heatmap.%j.err
 
 
-base=/lustre2/scratch/jms71286/ATACseq
+base=/lustre2/scratch/jms71286/ATACseq/heatmap
 plots=${base}/Plots
 metadir=${base}/GZ_Files
 
