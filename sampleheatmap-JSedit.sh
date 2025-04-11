@@ -17,9 +17,6 @@ plots=${base}/Plots
 metadir=${base}/GZ_files
 genome_bed_file="/scratch/jms71286/ATACseq/Peaks1/148-N4_ATAC_H1green_gDNA__Rep1_S100_L003_R1_001_val_1.fq.gz_summits.bed"
 
-mkdir $base
-mkdir $plots
-mkdir $metadir
 
 module load deepTools/3.5.2-foss-2022a
 
