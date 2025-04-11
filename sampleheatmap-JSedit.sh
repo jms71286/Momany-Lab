@@ -18,7 +18,6 @@ metadir=${base}/GZ_Files
 module load deepTools/3.5.2-foss-2022a
 genome_bed_file=?
 
-mkdir $base
 mkdir $plots
 mkdir $metadir
 
