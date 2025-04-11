@@ -24,10 +24,9 @@ computeMatrix reference-point -S $base/BigWigs/148-N4_ATAC_H1green_gDNA__Rep1_S1
     --outFileSortedRegions ${metadir}/euchromatin_matrix.bed
 
 
-plotHeatmap -matrixFile ${metadir}/euchromatin_matrix.gz -o ${plots}/euchromatin_matrix.png --outFileNameMatrix  ${metadir}/euchromatin_matrixmatrix.txt \
+plotHeatmap --matrixFile ${metadir}/euchromatin_matrix.gz -o ${plots}/euchromatin_matrix.png --outFileNameMatrix ${metadir}/euchromatin_matrixmatrix.txt \
     --colorMap Greens Greens Greys Greys Greys PuRd PuRd Reds Reds Reds Reds \
     --kmeans 4 --clusterUsingSamples 6 7 --sortUsingSamples 7 11 \
-    --skipZeros -o matrix.mat.gz
 
 ### get genes overlapping with Peaks
 ml BEDTools/2.30.0-GCC-12.2.0
