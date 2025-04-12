@@ -24,5 +24,9 @@ computeMatrix reference-point -R $genome_bed_file -a 2000 -b 1000  \
   -o ${metadir}/euchromatin_matrix.gz \
 
 plotHeatmap --matrixFile ${metadir}/euchromatin_matrix.gz -o ${plots}/euchromatin_matrix.png --outFileNameMatrix ${metadir}/euchromatin_matrixmatrix.txt \
+
 --colorMap Greens Greens Greys Greys Greys PuRd PuRd Reds Reds Reds Reds \
+
 --kmeans 4 --clusterUsingSamples 6 7 --sortUsingSamples 7 11 \
+
+--linesAtTickMarks --heatmapHeight 18 --heatmapWidth 3 --dpi 600 --missingDataAsZeros
