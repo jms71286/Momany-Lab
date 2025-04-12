@@ -23,8 +23,6 @@ computeMatrix reference-point -R $genome_bed_file -a 2000 -b 1000  \
   -S $ATAC/BigWigs/148-N4_ATAC_H1green_gDNA__Rep1_S100_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N13_ATAC_H1green_37C_3d__Rep2_S109_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw  $ATAC/BigWigs/148-N9_ATAC_H1green_37C_3d__Rep1_S105_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N12_ATAC_H1green_50C_4d__Rep1_S108_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw \
   -o ${metadir}/euchromatin_matrix.gz \
 
-  --outFileSortedRegions ${metadir}/euchromatin_matrix.bed
-
 
 plotHeatmap --matrixFile ${metadir}/euchromatin_matrix.gz -o ${plots}/euchromatin_matrix.png --outFileNameMatrix ${metadir}/euchromatin_matrixmatrix.txt \
 --colorMap Greens Greens Greys Greys Greys PuRd PuRd Reds Reds Reds Reds \
