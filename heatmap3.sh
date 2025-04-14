@@ -20,16 +20,15 @@ genome_bed_file="/scratch/jms71286/ATACseq/Peaks1/148-N4_ATAC_H1green_gDNA__Rep1
 module load deepTools/3.5.2-foss-2022a
 
 computeMatrix reference-point -R $genome_bed_file -a 1000 -b 2000  \
--S $ATAC/BigWigs/148-N4_ATAC_H1green_gDNA__Rep1_S100_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N9_ATAC_H1green_37C_3d__Rep1_S105_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw  \
--o ${metadir}/euchromatin_matrix.gz \ # to be used with plotHeatmap and plotProfile
---skipZeros \
---outFileSortedRegions $genome_bed_file
---outFileSortedRegions ${metadir}/euchromatin_matrix.bed
+  -S $ATAC/BigWigs/148-N4_ATAC_H1green_gDNA__Rep1_S100_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N9_ATAC_H1green_37C_3d__Rep1_S105_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw  \
+  -o ${metadir}/euchromatin_matrix.gz \
 
-plotHeatmap --matrixFile ${metadir}/euchromatin_matrix.gz -o ${plots}/euchromatin_matrix.png
-plotHeatmap --matrixFile ${metadir}/euchromatin_matrix.gz --outFileNameMatrix ${metadir}/euchromatin_matrixmatrix.txt \
+computeMatrix reference-point -R $genome_bed_file -a 1000 -b 2000  \
+ -S $ATAC/BigWigs/148-N4_ATAC_H1green_gDNA__Rep1_S100_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N9_ATAC_H1green_37C_3d__Rep1_S105_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw  \
+ --skipZeros \
+ --outFileSortedRegions ${metadir}/euchromatin_matrix.bed
 
-### get genes overlapping with Peaks
-module load BEDTools/2.30.0-GCC-12.2.0
-bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N9_ATAC_H1green_37C_3d__Rep1_S105_L003_R1_001_val_1.fq.gz_summits.bed -wa > $base/HeatmapGenesN9.txt
-bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz_summits.bed -wa > $base/HeatmapGenesN18.txt
+ plotHeatmap --matrixFile ${metadir}/euchromatin_matrix.gz -o ${plots}/euchromatin_matrix.png --outFileNameMatrix ${metadir}/euchromatin_matrixmatrix.txt \
+   --colorMap Greens Greens Greys Greys Greys PuRd PuRd Reds Reds Reds Reds \
+   --kmeans 4 --clusterUsingSamples 6 7 --sortUsingSamples 7 11 \
+   --linesAtTickMarks --heatmapHeight 18 --heatmapWidth 3 --dpi 600 --missingDataAsZeros
