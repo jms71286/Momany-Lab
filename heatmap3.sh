@@ -19,14 +19,13 @@ genome_bed_file="/scratch/jms71286/ATACseq/Peaks1/148-N4_ATAC_H1green_gDNA__Rep1
 
 module load deepTools/3.5.2-foss-2022a
 
-computeMatrix reference-point -R $genome_bed_file -a 1000 -b 2000  \
-
+$ computeMatrix reference-point
+--referencePoint TSS \ # alternatives: TES, center
+-b 1000 -a 2000 \ # define the region you are interested in
+-R $genome_bed_file \
 -S $ATAC/BigWigs/148-N4_ATAC_H1green_gDNA__Rep1_S100_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N9_ATAC_H1green_37C_3d__Rep1_S105_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw $ATAC/BigWigs/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw  \
-
---samplesLabel "gDNA" "37C" "50C" \
-
--o ${metadir}/euchromatin_matrix.gz \
-
+--skipZeros \
+-o ${metadir}/euchromatin_matrix.gz \ # to be used with plotHeatmap and plotProfile
 --outFileSortedRegions ${metadir}/euchromatin_matrix.bed
 
 
@@ -35,5 +34,16 @@ plotHeatmap --matrixFile ${metadir}/euchromatin_matrix.gz --outFileNameMatrix ${
 
 ### get genes overlapping with Peaks
 module load BEDTools/2.30.0-GCC-12.2.0
-bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N9_ATAC_H1green_37C_3d__Rep1_S105_L003_R1_001_val_1.fq.gz_summits.bed -wa > $ATAC/HeatmapGenes
-bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz_summits.bed -wa > $ATAC/HeatmapGenes
+bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N9_ATAC_H1green_37C_3d__Rep1_S105_L003_R1_001_val_1.fq.gz_summits.bed -wa > $ATAC/HeatmapGenesN9
+bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz_summits.bed -wa > $ATAC/HeatmapGenesN18
+
+#below is from website
+/scratch/jms71286/ATACseq/Heatmap
+$ computeMatrix reference-point \ # choose the mode
+       --referencePoint TSS \ # alternatives: TES, center
+       -b 3000 -a 10000 \ # define the region you are interested in
+       -R testFiles/genes.bed \
+       -S testFiles/log2ratio_H3K4Me3_chr19.bw  \
+       --skipZeros \
+       -o matrix1_H3K4me3_l2r_TSS.gz \ # to be used with plotHeatmap and plotProfile
+       --outFileSortedRegions regions1_H3K4me3_l2r_genes.bed
