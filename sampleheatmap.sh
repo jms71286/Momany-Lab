@@ -37,5 +37,11 @@ computeMatrix reference-point --referencePoint TSS  -R $genome_bed_file -b 500 -
 
 
 ### get genes overlapping with Peaks
-ml BEDTools/2.30.0-GCC-12.2.0
+module load BEDTools/2.30.0-GCC-12.2.0
 bedtools intersect -a $genome_bed_file -b <bed file from peak calling> -wa  > filename
+
+
+#JS edit 4/14
+### get genes overlapping with Peaks
+module load BEDTools/2.30.0-GCC-12.2.0
+bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz_summits.bed -wa > $base/HeatmapGenesN18.txt
