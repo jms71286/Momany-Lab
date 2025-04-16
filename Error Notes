@@ -1,0 +1,155 @@
+#command to transfer files from desktop computer to worker node using transfer. example here ATACseq is a folder on macbook desktop.
+scp -r ATACseq jms71286@xfer.gacrc.uga.edu:/home/jms71286
+
+
+# example online- run compute matrix to collect the data needed for plotting
+computeMatrix scale-regions -S H3K27Me3-input.bigWig \
+                                       H3K4Me1-Input.bigWig  \
+                                       H3K4Me3-Input.bigWig \
+                                    -R genes19.bed genesX.bed \
+                                    --beforeRegionStartLength 3000 \
+                                    --regionBodyLength 5000 \
+                                    --afterRegionStartLength 3000
+                                    --skipZeros -o matrix.mat.gz
+
+      $ plotHeatmap -m matrix.mat.gz \
+            -out ExampleHeatmap1.png \
+
+
+
+#error mess 4:45pm job 7832
+usage: plotHeatmap [--matrixFile MATRIXFILE] --outFileName OUTFILENAME
+                   [--outFileSortedRegions FILE] [--outFileNameMatrix FILE]
+                   [--interpolationMethod STR] [--dpi DPI] [--kmeans KMEANS]
+                   [--hclust HCLUST] [--silhouette] [--help] [--version]
+                   [--plotType {lines,fill,se,std}]
+                   [--sortRegions {descend,ascend,no,keep}]
+                   [--sortUsing {mean,median,max,min,sum,region_length}]
+                   [--sortUsingSamples SORTUSINGSAMPLES [SORTUSINGSAMPLES ...]]
+                   [--linesAtTickMarks]
+                   [--clusterUsingSamples CLUSTERUSINGSAMPLES [CLUSTERUSINGSAMP$
+                   [--averageTypeSummaryPlot {mean,median,min,max,std,sum}]
+                   [--missingDataColor MISSINGDATACOLOR]
+                   [--colorMap COLORMAP [COLORMAP ...]] [--alpha ALPHA]
+                   [--colorList COLORLIST [COLORLIST ...]]
+                   [--colorNumber COLORNUMBER] [--zMin ZMIN [ZMIN ...]]
+                   [--zMax ZMAX [ZMAX ...]] [--heatmapHeight HEATMAPHEIGHT]
+                   [--heatmapWidth HEATMAPWIDTH]
+                   [--whatToShow {plot, heatmap and colorbar,plot and heatmap,h$
+                   [--boxAroundHeatmaps BOXAROUNDHEATMAPS]
+
+
+#error 318
+Traceback (most recent call last):
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/bin/plotHeatmap", line 12, in <module>
+    main(args)
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/lib/python3.10/site-packages/deeptools/plotHeatmap.py", line 823, in main
+    hm.matrix.hmcluster(args.kmeans, method='kmeans', clustering_samples=args.clusterUsingSamples)
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/lib/python3.10/site-packages/deeptools/heatmapper.py", line 1258, in hmcluster
+    assert all(i <= len(self.sample_labels) for i in
+AssertionError: each index should be smaller than or equal to 5(total number of samples.)
+
+The following have been reloaded with a version change:
+  1) GCC/11.3.0 => GCC/12.2.0
+  2) GCCcore/11.3.0 => GCCcore/12.2.0
+  3) XZ/5.2.5-GCCcore-11.3.0 => XZ/5.2.7-GCCcore-12.2.0
+  4) binutils/2.38-GCCcore-11.3.0 => binutils/2.39-GCCcore-12.2.0
+  5) bzip2/1.0.8-GCCcore-11.3.0 => bzip2/1.0.8-GCCcore-12.2.0
+  6) zlib/1.2.12-GCCcore-11.3.0 => zlib/1.2.12-GCCcore-12.2.0
+
+Error: Unable to determine type for file /scratch/jms71286/ATACseq/BigWigs/148-N13_ATAC_H1green_37C_3d__Rep2_S109_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw
+
+
+
+7/16pm error message 368
+   File "/apps/eb/Python/3.10.4-GCCcore-11.3.0/lib/python3.10/socket.py", line 955, in getaddrinfo
+     for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+ usage: plotHeatmap [--matrixFile MATRIXFILE] --outFileName OUTFILENAME
+                    [--outFileSortedRegions FILE] [--outFileNameMatrix FILE]
+                    [--interpolationMethod STR] [--dpi DPI] [--kmeans KMEANS]
+                    [--hclust HCLUST] [--silhouette] [--help] [--version]
+                    [--plotType {lines,fill,se,std}]
+                    [--sortRegions {descend,ascend,no,keep}]
+                    [--sortUsing {mean,median,max,min,sum,region_length}]
+                    [--sortUsingSamples SORTUSINGSAMPLES [SORTUSINGSAMPLES ...]]
+                    [--linesAtTickMarks]
+                    [--clusterUsingSamples CLUSTERUSINGSAMPLES [CLUSTERUSINGSAMPLES ...]]
+                    [--averageTypeSummaryPlot {mean,median,min,max,std,sum}]
+                    [--missingDataColor MISSINGDATACOLOR]
+                    [--colorMap COLORMAP [COLORMAP ...]] [--alpha ALPHA]
+                    [--colorList COLORLIST [COLORLIST ...]]
+                    [--colorNumber COLORNUMBER] [--zMin ZMIN [ZMIN ...]]
+                    [--zMax ZMAX [ZMAX ...]] [--heatmapHeight HEATMAPHEIGHT]
+                    [--heatmapWidth HEATMAPWIDTH]
+                    [--whatToShow {plot, heatmap and colorbar,plot and heatmap,heatmap only,heatmap and colorbar}]
+                    [--xAxisLabel XAXISLABEL] [--startLabel STARTLABEL]
+            [--endLabel ENDLABEL] [--refPointLabel REFPOINTLABEL]
+            [--labelRotation LABEL_ROTATION]
+            [--regionsLabel REGIONSLABEL [REGIONSLABEL ...]]
+            [--samplesLabel SAMPLESLABEL [SAMPLESLABEL ...]]
+            [--plotTitle PLOTTITLE] [--yAxisLabel YAXISLABEL]
+            [--yMin YMIN [YMIN ...]] [--yMax YMAX [YMAX ...]]
+            [--legendLocation {best,upper-right,upper-left,upper-center,lower-left,lower-right,lower-center,center,center-left,center-right,none}]
+            [--perGroup] [--plotFileFormat] [--verbose]
+
+error 456 8:14pm
+/var/lib/slurmd/job36518456/slurm_script: line 26: --outFileSortedRegions: command not found
+Traceback (most recent call last):
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/bin/plotHeatmap", line 12, in <module>
+    main(args)
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/lib/python3.10/site-packages/deeptools/plotHeatmap.py", line 823, in main
+    hm.matrix.hmcluster(args.kmeans, method='kmeans', clustering_samples=args.clusterUsingSamples)
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/lib/python3.10/site-packages/deeptools/heatmapper.py", line 1258, in hmcluster
+    assert all(i <= len(self.sample_labels) for i in
+AssertionError: each index should be smaller than or equal to 5(total number of samples.)
+
+The following have been reloaded with a version change:
+  1) GCC/11.3.0 => GCC/12.2.0
+  2) GCCcore/11.3.0 => GCCcore/12.2.0
+  3) XZ/5.2.5-GCCcore-11.3.0 => XZ/5.2.7-GCCcore-12.2.0
+  4) binutils/2.38-GCCcore-11.3.0 => binutils/2.39-GCCcore-12.2.0
+  5) bzip2/1.0.8-GCCcore-11.3.0 => bzip2/1.0.8-GCCcore-12.2.0
+  6) zlib/1.2.12-GCCcore-11.3.0 => zlib/1.2.12-GCCcore-12.2.0
+
+Error: Unable to determine type for file /scratch/jms71286/ATACseq/BigWigs/148-N13_ATAC_H1green_37C_3d__Rep2_S109_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw
+
+
+
+Error 491
+Traceback (most recent call last):
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/bin/plotHeatmap", line 12, in <module>
+    main(args)
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/lib/python3.10/site-packages/deeptools/plotHeatmap.py", line 823, in main
+    hm.matrix.hmcluster(args.kmeans, method='kmeans', clustering_samples=args.clusterUsingSamples)
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/lib/python3.10/site-packages/deeptools/heatmapper.py", line 1258, in hmcluster
+    assert all(i <= len(self.sample_labels) for i in
+
+AssertionError: each index should be smaller than or equal to 5(total number of samples.)
+
+The following have been reloaded with a version change:
+  1) GCC/11.3.0 => GCC/12.2.0
+  2) GCCcore/11.3.0 => GCCcore/12.2.0
+  3) XZ/5.2.5-GCCcore-11.3.0 => XZ/5.2.7-GCCcore-12.2.0
+  4) binutils/2.38-GCCcore-11.3.0 => binutils/2.39-GCCcore-12.2.0
+  5) bzip2/1.0.8-GCCcore-11.3.0 => bzip2/1.0.8-GCCcore-12.2.0
+  6) zlib/1.2.12-GCCcore-11.3.0 => zlib/1.2.12-GCCcore-12.2.0
+
+Error: Unable to determine type for file /scratch/jms71286/ATACseq/BigWigs/148-N13_ATAC_H1green_37C_3d__Rep2_S109_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw
+
+
+Error 516
+Traceback (most recent call last):
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/bin/plotHeatmap", line 12, in <module>
+    main(args)
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/lib/python3.10/site-packages/deeptools/plotHeatmap.py", line 823, in main
+    hm.matrix.hmcluster(args.kmeans, method='kmeans', clustering_samples=args.clusterUsingSamples)
+  File "/apps/eb/deepTools/3.5.2-foss-2022a/lib/python3.10/site-packages/deeptools/heatmapper.py", line 1258, in hmcluster
+    assert all(i <= len(self.sample_labels) for i in
+AssertionError: each index should be smaller than or equal to 3(total number of samples.)
+
+scp teach:/work/gene8940/jms71286/homework_3_run2/canuPB_mummer_output_long.png Desktop
+scp txfer:/work/gene8940/jms71286/homework_4/SRR8082143.sorted.bam.bai .
+
+scp txfer:/scratch/jms71286/ATACseq/HeatmapGenes Desktop
+scp txfer:/lustre2/scratch/jms71286/ATACseq/Heatmap/euchromatin_matrixmatrix.txt Desktop

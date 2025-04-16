@@ -12,6 +12,7 @@
 #Using Project_RNAseq.sh as template
 #PROJ_OUTDIR="/work/gene8940/jms71286/Project_RNAseq"
 rnaseq="/scratch/jms71286/rnaseq"
+cd $rnaseq
 
 if [ ! -d $rnaseq ]
 then

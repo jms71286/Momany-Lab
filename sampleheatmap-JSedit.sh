@@ -37,5 +37,38 @@ Error: Unable to open file /lustre2/scratch/jms71286/ATACseq/Heatmap/BigWigs/148
 
 
 ### get genes overlapping with Peaks
-ml BEDTools/2.30.0-GCC-12.2.0
+module load BEDTools/2.30.0-GCC-12.2.0
 bedtools intersect -a $genome_bed_file -b $base/BigWigs/148-N13_ATAC_H1green_37C_3d__Rep2_S109_L003_R1_001_val_1.fq.gz.ATAC_bin_3.smooth_6_Bulk.bw -wa  > $ATAC/HeatmapGenes
+
+### get genes overlapping with Peaks
+module load BEDTools/2.30.0-GCC-12.2.0
+bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz_summits.bed -wa > $base/HeatmapGenesN18.txt
+
+
+
+#compute matrix  changed 4/14 6:40pm
+--outFileSortedRegions $genome_bed_file
+--outFileSortedRegions ${metadir}/euchromatin_matrix.bed
+
+#Below is from the website
+#####
+
+$ computeMatrix reference-point \ # choose the mode
+       --referencePoint TSS \ # alternatives: TES, center
+       -b 3000 -a 10000 \ # define the region you are interested in
+       -R testFiles/genes.bed \
+       -S testFiles/log2ratio_H3K4Me3_chr19.bw  \
+       --skipZeros \
+       -o matrix1_H3K4me3_l2r_TSS.gz \ # to be used with plotHeatmap and plotProfile
+       --outFileSortedRegions regions1_H3K4me3_l2r_genes.bed
+
+
+
+$ deepTools2.0/bin/computeMatrix scale-regions \
+  -R genes_chr19_firstHalf.bed genes_chr19_secondHalf.bed \ # separate multiple files with spaces
+  -S testFiles/log2ratio_*.bw  \ or use the wild card approach
+  -b 3000 -a 3000 \
+  --regionBodyLength 5000 \
+  --skipZeros -o matrix2_multipleBW_l2r_twoGroups_scaled.gz \
+  --outFileNameMatrix matrix2_multipleBW_l2r_twoGroups_scaled.tab \
+  --outFileSortedRegions regions2_multipleBW_l2r_twoGroups_genes.bed

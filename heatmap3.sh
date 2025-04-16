@@ -25,3 +25,4 @@ computeMatrix reference-point -R $genome_bed_file -a 1000 -b 2000  \
  --outFileSortedRegions ${metadir}/euchromatin_matrix.bed
 
  plotHeatmap --matrixFile ${metadir}/euchromatin_matrix.gz -o ${plots}/euchromatin_matrix.png --outFileNameMatrix ${metadir}/euchromatin_matrixmatrix.tab \
+#  --samplesLabel "M_K27me3" "P_K27me3" "M_ATAC" "M_ATAC141" "P_ATAC" "M_K4" "P_K4" "M_RNA" "PP_RNA" "FP_RNA" "P_RNA" \
