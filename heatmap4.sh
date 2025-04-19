@@ -15,7 +15,7 @@ ATAC="/scratch/jms71286/ATACseq"
 base=/scratch/jms71286/ATACseq/Heatmap
 plots=${base}/Plots
 metadir=${base}/GZ_files
-genome_bed_file="/scratch/jms71286/ATACseq/Peaks1/148-N4_ATAC_H1green_gDNA__Rep1_S100_L003_R1_001_val_1.fq.gz_summits.bed"
+genome_bed_file="/scratch/jms71286/ATACseq/Genome/Afum_A1163_edit6.bed"
 
 ### get genes overlapping with Peaks
 module load BEDTools/2.30.0-GCC-12.2.0
@@ -23,4 +23,5 @@ bedtools intersect -a $genome_bed_file -b $base/BigWigs/148-N13_ATAC_H1green_37C
 
 ### get genes overlapping with Peaks
 module load BEDTools/2.30.0-GCC-12.2.0
-bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz_summits.bed -wa > $base/HeatmapGenesN18.txt
+bedtools intersect -a $genome_bed_file -b $ATAC/Peaks1/148-N18_ATAC_H1green_50C_3d__Rep2_S114_L003_R1_001_val_1.fq.gz_summits.bed -wa > $base/HeatmapGenesN18.bed
+#open bed in excel
