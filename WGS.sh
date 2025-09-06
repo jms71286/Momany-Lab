@@ -15,18 +15,17 @@ module load SRA-Toolkit/3.0.10-gompi-2023a
 module load BWA/0.7.17-GCCcore-12.3.0
 module load SAMtools/1.21-GCC-13.3.0
 
-bwa index $WGS/GCF_000002655.1_ASM265v1_cds_from_genomic.fna.gz      # to make BWA index, L15 Slide 16
-bwa mem -t 1 $WGS/GCF_000002655.1_ASM265v1_cds_from_genomic.fna.gz $WGS/CEA10_GCA_051225625.1_ASM5122562v1_genomic.fna > $WGS/CEA10.sam     #bwa mem -t 1 ref_genome.fa sample_1.fastq.gz sample_2.fastq.gz > sample.sam
+bwa index $WGS/GCF_000002655.1_ASM265v1_genomic.fna    # to make BWA index, L15 Slide 16
+bwa mem -t 1 $WGS/GCF_000002655.1_ASM265v1_genomic.fna $WGS/CEA10_GCA_051225625.1_ASM5122562v1_genomic.fna > $WGS/CEA10.sam     #bwa mem -t 1 ref_genome.fa sample_1.fastq.gz sample_2.fastq.gz > sample.sam
 
 samtools view $WGS/CEA10.sam -O BAM -o $WGS/CEA10.bam       # converts .sam format to .bam
 samtools sort --threads 6 $WGS/CEA10.bam -o $WGS/CEA10.sorted.bam       # sorts .bam
 samtools index $WGS/CEA10.sorted.bam         # generates index for sorted .bam
 #everything above this line ran in interact and worked
 
-
 module load BCFtools/1.21-GCC-13.3.0  #L16 Slide 11
 
-bcftools mpileup -Oz --threads 6 --min-MQ 60 -f $WGS/GCF_000002655.1_ASM265v1_cds_from_genomic.fna.gz $WGS/CEA10.sorted.bam > $WGS/CEA10.sorted.mpileup.vcf.gz   #Calls genotype liklihoods
+bcftools mpileup -Oz --threads 6 --min-MQ 60 -f $WGS/GCF_000002655.1_ASM265v1_genomic.fna $WGS/CEA10.sorted.bam > $WGS/CEA10.sorted.mpileup.vcf.gz   #Calls genotype liklihoods
 bcftools call -Oz -mv --threads 6 --ploidy 1 $WGS/CEA10.sorted.mpileup.vcf.gz > $WGS/CEA10.sorted.mpileup.call.vcf.gz   #Calls variants
 
 bcftools filter -Oz -e 'QUAL<40 || DP<10' $WGS/CEA10.sorted.mpileup.call.vcf.gz > $WGS/CEA10.sorted.mpileup.call.filter.vcf.gz #Filters variants
