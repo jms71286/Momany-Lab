@@ -4,10 +4,25 @@
 #SBATCH --ntasks=1			                                       # Single task job
 #SBATCH --cpus-per-task=24 	                                   # Number of cores per task - match this to the num_threads used by BLAST
 #SBATCH --mem=50gb			                                       # Total memory for job
-#SBATCH --time=2:00:00  		                                   # Time limit hrs:min:sec
-#SBATCH --output=/scratch/jms71286/WGS/logs.%j.out		                             # Standard output and error log - #
+#SBATCH --time=2:00:00  		                                   # Time limit hrs:min:sec	                             # Standard output and error log - #
 #SBATCH --mail-user=jms71286@uga.edu                           # Mail events (BEGIN, END, FAIL, ALL)
-#SBATCH --error=../logs.%j.err
+
+#!/bin/bash
+#SBATCH --job-name=indexref
+#SBATCH --partition=batch
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+#SBATCH --time=8:00:00
+#SBATCH --mem=8G
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=mmm07490@uga.edu
+
+cd ./
+module load BWA/0.7.18-GCCcore-13.3.0
+
+bwa index /work/dblab/miranda/scripts/sacParRef.fna
+
+# above is mirandaas
 
 WGS="/scratch/jms71286/WGS" #ILLUMINA READS W SAMTOOLS AND BCFTOOLS
 
@@ -33,3 +48,13 @@ bcftools index $WGS/CEA10.sorted.mpileup.call.filter.vcf.gz # vcf.gz.csi file - 
 gunzip -c $WGS/CEA10.sorted.mpileup.call.filter.vcf.gz > $WGS/UNZIP_CEA10.sorted.mpileup.call.filter.vcf
 
 # bcftools consensus -f $HW4_OUTDIR/MG1655_RefSeq.fna $HW4_OUTDIR/SRR8082143.sorted.mpileup.call.filter.vcf.gz > $HW4_OUTDIR/SRR8082143_consensus.fa
+
+
+$IPFLU/25266-01-fastq/eAF2436_R1.fastq.gz
+$IPFLU/25266-01-fastq/eAF2436_R2.fastq.gz
+$IPFLU/25266-01-fastq/AfDT96_R1.fastq.gz
+$IPFLU/25266-01-fastq/AfDT96_R2.fastq.gz
+$IPFLU/25266-01-fastq/AfDT109_R1.fastq.gz
+$IPFLU/25266-01-fastq/AfDT109_R2.fastq.gz
+$IPFLU/25266-01-fastq/AfDT101_R1.fastq.gz
+$IPFLU/25266-01-fastq/AfDT101_R2.fastq.gz
