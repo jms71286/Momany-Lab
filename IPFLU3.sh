@@ -16,7 +16,7 @@ module load SAMtools/1.21-GCC-13.3.0
 module load BCFtools/1.21-GCC-13.3.0  #L16 Slide 11
 
 
-bcftools mpileup -Oz --threads 6 --min-MQ 40 -f $IPFLU_out/Af293_refseq_genomic.fna.gz $IPFLU_out/eAF2436.bam > $IPFLU_out/eAF2436.mpileup.vcf.gz   #Generates genotype likelihoods at variant sites
+bcftools mpileup -Oz --threads 6 --min-MQ 40 -f $IPFLU_out/Af293_refseq_genomic.fna $IPFLU_out/eAF2436.bam > $IPFLU_out/eAF2436.mpileup.vcf.gz   #Generates genotype likelihoods at variant sites
 
 bcftools call -Oz -mv --threads 6 --ploidy 1 $IPFLU_out/eAF2436.mpileup.vcf.gz > $IPFLU_out/eAF2436.mpileup.call.vcf.gz   #Calls variants
 
