@@ -9,11 +9,12 @@
 #SBATCH --mail-user=jms71286@uga.edu
 
 cd ./scratch/jms71286/IPFLU
+
 module load BWA/0.7.18-GCCcore-13.3.0
 
 IPFLU_out="/scratch/jms71286/IPFLU" #ILLUMINA READS W SAMTOOLS AND BCFTOOLS
 
-bwa index $IPFLU_out/Af293_Refseq_CDS.fna
+bwa index $IPFLU_out/Af293_refseq_genomic.fna.gz
 
 module load SAMtools/1.21-GCC-13.3.0
 
@@ -24,5 +25,6 @@ do
   input2="${i}_2.fastq.gz"
   output="${i}"
 
-  bwa mem $IPFLU_out/Af293_Refseq_CDS.fna $IPFLU_out/25266-01-fastq/eAF2436_R1.fastq.gz $IPFLU_out/25266-01-fastq/eAF2436_R2.fastq.gz | samtools view -b - | samtools sort -o $IPFLU_out/eAF2436.bam -
-done
+  bwa mem $IPFLU_out/Af293_refseq_genomic.fna.gz $IPFLU_out/25266-01-fastq/eAF2436_R1.fastq.gz $IPFLU_out/25266-01-fastq/eAF2436_R2.fastq.gz | samtools view -b - | samtools sort -o $IPFLU_out/eAF2436.bam
+
+samtools index $IPFLU_out/eAF2436.bam         # generates index for sorted .bam

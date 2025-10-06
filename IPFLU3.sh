@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=indexref
+#SBATCH --job-name=variantcalling
 #SBATCH --partition=batch
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
@@ -13,13 +13,10 @@ cd ./scratch/jms71286/IPFLU
 IPFLU_out="/scratch/jms71286/IPFLU"
 
 module load SAMtools/1.21-GCC-13.3.0
-
-samtools index $IPFLU_out/eAF2436.bam         # generates index for sorted .bam
-
 module load BCFtools/1.21-GCC-13.3.0  #L16 Slide 11
 
 
-bcftools mpileup -Oz --threads 6 --min-MQ 40 -f $IPFLU_out/Af293_Refseq_CDS.fna $IPFLU_out/eAF2436.bam > $IPFLU_out/eAF2436.mpileup.vcf.gz   #Generates genotype likelihoods at variant sites
+bcftools mpileup -Oz --threads 6 --min-MQ 40 -f $IPFLU_out/Af293_refseq_genomic.fna.gz $IPFLU_out/eAF2436.bam > $IPFLU_out/eAF2436.mpileup.vcf.gz   #Generates genotype likelihoods at variant sites
 
 bcftools call -Oz -mv --threads 6 --ploidy 1 $IPFLU_out/eAF2436.mpileup.vcf.gz > $IPFLU_out/eAF2436.mpileup.call.vcf.gz   #Calls variants
 
