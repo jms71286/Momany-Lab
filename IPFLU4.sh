@@ -12,11 +12,15 @@ cd ./scratch/jms71286/IPFLU
 
 IPFLU_out="/scratch/jms71286/IPFLU"
 
+#gunzip -c $IPFLU_out/eAF2436.mpileup.vcf.gz > $IPFLU_out/eAF2436.mpileup.vcf
+
+inDir=$1    # folder of vcf files
+outDir=$2   # folder for fa files (use . to put in same folder as inDir)
+
 module load BCFtools/1.21-GCC-13.3.0
 module load seqtk/1.4-GCC-13.3.0
 
-gunzip -c $IPFLU_out/eAF2436.mpileup.vcf.gz > $IPFLU_out/eAF2436.mpileup.vcf
-
+cd ./
 for file in *.vcf; do
         strain=${file%%.vcf};
         outputfa="${strain}.fa";
@@ -25,5 +29,5 @@ for file in *.vcf; do
     echo "Outputfa: ${outputfa}";
     pwd
     #echo "${strain}" > ${outputfa}.test;
-    ./vcfutils.pl vcf2fq $IPFLU_out/eAF2436.mpileup.vcf | seqtk seq -q 40 -A > $IPFLU_out/eAF2436.mpileup.fa
+    ./vcfutils.pl vcf2fq $IPFLU_out/eAF2436.mpileup.vcf | seqtk seq -q 40 -A > $IPFLU_out/eAF2436.mpileup.fa;
 done
