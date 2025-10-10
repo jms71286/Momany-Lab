@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=vcf to fasta
+#SBATCH --job-name=vcf2fasta
 #SBATCH --partition=batch
 #SBATCH --ntasks=1
 #SBATCH --nodes=1
