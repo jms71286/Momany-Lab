@@ -15,4 +15,4 @@ IPFLU_out="/scratch/jms71286/IPFLU"
 
 module load BCFtools/1.21-GCC-13.3.0
 
-    bcftools consensus -f $IPFLU_out/Af293_refseq_genomic.fna $IPFLU_out/eAF2436.mpileup.call.filter.vcf.gz > eAF2436_consensus.fasta
+    bcftools consensus -f $IPFLU_out/Af293_refseq_genomic.fna $IPFLU_out/eAF2436.mpileup.call.filter.vcf.gz > $IPFLU_out/eAF2436_consensus.fasta
