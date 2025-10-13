@@ -12,11 +12,7 @@ cd ./scratch/jms71286/IPFLU
 
 IPFLU_out="/scratch/jms71286/IPFLU"
 
-#gunzip -c $IPFLU_out/eAF2436.mpileup.vcf.gz > $IPFLU_out/eAF2436.mpileup.vcf
 
 module load BCFtools/1.21-GCC-13.3.0
-module load seqtk/1.4-GCC-13.3.0
 
-vcfutils.pl vcf2fq $IPFLU_out/eAF2436.mpileup.vcf > $IPFLU_out/eAF2436.mpileup.fq
-
-seqtk seq -q 40 -A $IPFLU_out/eAF2436.mpileup.fq > $IPFLU_out/eAF2436.mpileup.fa
+    bcftools consensus -f $IPFLU_out/Af293_refseq_genomic.fna $IPFLU_out/eAF2436.mpileup.call.filter.vcf.gz > eAF2436_consensus.fasta
